@@ -1,28 +1,10 @@
 import { Request, Response } from 'express';
 import { StudentServices } from './student.service';
 import studentValidationSchema from '../student.validation';
-import { z } from 'zod';
 
 const createStudent = async (req: Request, res: Response) => {
   try {
-    // zod validation
-
-const studentValidationWithZod = z.object({
-  
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
 
     const { student } = req.body;
     const { error, value } = studentValidationSchema.validate(student);
@@ -43,10 +25,10 @@ const studentValidationWithZod = z.object({
       message: 'Student is created succesfully',
       data: result,
     });
-  } catch (error) {
+  } catch (error:any) {
     res.status(500).json({
       success: false,
-      message: 'Someting went wrong',
+      message: error.message || 'Someting went wrong',
       error,
     });
   }
@@ -82,7 +64,8 @@ const getStudent = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error) {
-    console.log(error);
+      console.log(error);
+      
   }
 };
 

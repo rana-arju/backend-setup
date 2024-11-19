@@ -1,8 +1,15 @@
-import { IStudent } from './student.interface';
+import { TStudent } from './student.interface';
 import { Student } from './student.schema';
 
-const createStudentIntoDB = async (student: IStudent) => {
-  const result = await Student.create(student);
+const createStudentIntoDB = async (studentData: TStudent) => {
+  // const result = await Student.create(student);
+  const student = new Student(studentData);
+  if (await student.isUserExists(studentData.id)) {
+    throw new Error('User already exists.');
+  }
+
+  
+  const result = await student.save(); // build in instance method provided by mongoose
   return result;
 };
 
