@@ -4,8 +4,6 @@ import studentValidationSchema from '../student.validation';
 
 const createStudent = async (req: Request, res: Response) => {
   try {
-    
-
     const { student } = req.body;
     const { error, value } = studentValidationSchema.validate(student);
 
@@ -25,7 +23,7 @@ const createStudent = async (req: Request, res: Response) => {
       message: 'Student is created succesfully',
       data: result,
     });
-  } catch (error:any) {
+  } catch (error: any) {
     res.status(500).json({
       success: false,
       message: error.message || 'Someting went wrong',
@@ -46,7 +44,11 @@ const getAllStudent = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error) {
-    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: 'Someting went wrong',
+      error,
+    });
   }
 };
 
@@ -64,8 +66,35 @@ const getStudent = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error) {
-      console.log(error);
-      
+    res.status(500).json({
+      success: false,
+      message: 'Someting went wrong',
+      error,
+    });
+  }
+};
+
+// student delete
+
+const deleteStudent = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+
+    // will call service func to send this data
+    const result = await StudentServices.deleteStudentFromDB(id);
+
+    // send response
+    res.status(200).json({
+      success: true,
+      message: 'Student deleted succesful',
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Someting went wrong',
+      error,
+    });
   }
 };
 
@@ -73,4 +102,5 @@ export const studentController = {
   createStudent,
   getAllStudent,
   getStudent,
+  deleteStudent,
 };

@@ -50,6 +50,7 @@ const studentValidationSchema = Joi.object({
     'string.empty': 'Student ID is required.',
     'any.required': 'Student ID is required.',
   }),
+  password: Joi.string().min(8).required().label('Password'),
   name: userNameValidationSchema.required().messages({
     'any.required': 'Name field is required.',
   }),
@@ -100,6 +101,7 @@ const studentValidationSchema = Joi.object({
     .messages({
       'any.only': 'isActive must be one of [active, inactive].',
     }),
+  isDeleted: Joi.boolean(),
 });
 
 

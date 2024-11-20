@@ -28,6 +28,7 @@ export type TLocalGuardian = {
 // Student
 export type TStudent = {
   id: string;
+  password: string;
   name: TUserName;
   profileImg?: string;
   email: string;
@@ -41,6 +42,7 @@ export type TStudent = {
   guardian: TGuardian;
   localGuardian: TLocalGuardian;
   isActive: 'active' | 'inactive';
+  isDeleted: boolean;
 };
 
 // for static
